@@ -1,0 +1,21 @@
+{
+  "name": "beer_tracker_client",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "jakofranko"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "^1.3.2"
+  }
+}
