@@ -15,10 +15,14 @@
 	<label for="name">Name</label>
 	<input type="text" name="name" class="name" placeholder="Beer Name...">
 	<br>
+	<label for="type">Beer Type</label>
+	<input type="text" name="type" class="type" placeholder="Beer Type...">
+	<br>
 	<label for="allergic">Allergic?</label>
 	<input type="checkbox" name="allergic" class="allergic">
 	<br>
 	<label>Ingredients:</label>
+	<div class="ingredients"></div>
 </div>
 
 <h2>Beer List</h2>
@@ -28,11 +32,14 @@
 	<dl>
 		<dt>Name</dt>
 		<dd><%= name %></dd>
+		<dt>Type</dt>
+		<dd><%= type %></dd>
 		<dt>Allergic?</dt>
 		<dd><%= allergic %></dd>
 		<dt>Ingredients</dt>
 		<dd><%= ingredients.join(", ") %></dd>
 	</dl>
+	<button class="delete">Delete Beer</button>
 </script>
 <script type="text/template" id="add-beer-template">
 	<div class="ingredient-row">

@@ -2,6 +2,9 @@ var BeerView = Backbone.View.extend({
 	tagName: 'li',
 	className: 'beer',
 	template: _.template($('#beer-list-template').html()),
+	events: {
+		'click .delete': 'onDelete'
+	},
 	initialize: function() {
 	    this.listenTo(this.model, 'destroy', this.remove);
 	},
@@ -9,6 +12,9 @@ var BeerView = Backbone.View.extend({
 	    var html = this.template(this.model.toJSON());
 	    this.$el.html(html);
 	    return this;
+	},
+	onDelete: function() {
+		this.model.destroy();
 	}
 });
 var BeerListView = Backbone.View.extend({

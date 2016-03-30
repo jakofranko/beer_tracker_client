@@ -1,6 +1,8 @@
 var BeerModel = Backbone.Model.extend({
 	defaults: {
+		id: null,
 		name: null,
+		type: null,
 		allergic: false,
 		ingredients: []
 	}

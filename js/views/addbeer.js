@@ -12,6 +12,7 @@ var AddBeerView = Backbone.View.extend({
 	el: '#add-beer',
 	events: {
 		'change .name': 'onChangeName',
+		'change .type': 'onChangeType',
 		'click .allergic': 'onClickAllergic',
 		'change .ingredient': 'onChangeIngredient',
 		'click .add-ingredient': 'onClickAddIngredient',
@@ -19,9 +20,20 @@ var AddBeerView = Backbone.View.extend({
 		'click .save': 'onSave'
 	},
 	initialize: function() {
+		// Clear out any old DOM elements
+		this.$el.find('.save').remove();
+		this.$el.find('.ingredients').empty();
+
 		this.model = new BeerModel();
 		var ingredient = new IngredientView().render();
-		this.$el.append(ingredient.$el.html());
+		var save = document.createElement('button');
+		var text = document.createTextNode('Add Beer');
+
+		save.appendChild(text);
+		save.className = 'save';
+
+		this.$('.ingredients').append(ingredient.$el.html());
+		this.$el.append(save);
 	},
 	render: function() {
 		var ingredients = $('.ingredient');
@@ -38,15 +50,18 @@ var AddBeerView = Backbone.View.extend({
 
 			values.forEach(function(val) {
 				var ingredient = new IngredientView().render(val);
-				self.$el.append(ingredient.$el.html());
+				self.$('.ingredients').append(ingredient.$el.html());
 			});
 		} else {
 			var ingredient = new IngredientView().render();
-			this.$el.append(ingredient.$el.html());
+			this.$('.ingredients').append(ingredient.$el.html());
 		}
 	},
 	onChangeName: function(e) {
 		this.model.set('name', e.currentTarget.value);
+	},
+	onChangeType: function(e) {
+		this.model.set('type', e.currentTarget.value);
 	},
 	onClickAllergic: function(e) {
 		console.log(e.currentTarget.value);
@@ -63,7 +78,7 @@ var AddBeerView = Backbone.View.extend({
 	},
 	onClickAddIngredient: function(e) {
 		var ingredient = new IngredientView().render();
-		this.$el.append(ingredient.$el.html());
+		this.$('.ingredients').append(ingredient.$el.html());
 		console.log(e.currentTarget);
 	},
 	onClickRemoveIngredient: function(e) {
@@ -72,8 +87,8 @@ var AddBeerView = Backbone.View.extend({
 		this.onChangeIngredient();
 	},
 	onSave: function(e) {
-		this.model.save();
-		$el.find('.name')
+		this.collection.create(this.model.toJSON());
+		this.$el.find('.name')
 			.add('.allergic')
 			.add('.ingredient')
 			.val(null)
